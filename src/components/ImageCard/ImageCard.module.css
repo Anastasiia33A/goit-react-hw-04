@@ -1,0 +1,13 @@
+.image-card {
+    width: 450px;
+    height: 300px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+
+.image-card img {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}

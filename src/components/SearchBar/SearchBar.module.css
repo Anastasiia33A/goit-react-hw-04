@@ -1,0 +1,29 @@
+.header {
+    padding: 15px;
+    background-color: lavenderblush;
+    display: flex;
+    justify-content: center;
+}
+ .search-input {
+     padding: 10px;
+     border: 1px solid #ccc;
+     border-radius: 5px;
+     font-size: 16px;
+     outline: none;
+ }
+
+ .search-input:focus {
+     border-color: blue;
+ }
+
+.search-btn {
+    margin: 20px;
+    padding: 10px 20px;
+    background-color: greenyellow;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+

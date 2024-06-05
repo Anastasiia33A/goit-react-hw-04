@@ -6,6 +6,7 @@ import ImageGallery from './components/ImageGallery//ImageGallery.jsx';
 import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import ImageModal from "./components/ImageModal/ImageModal";
+import { Toaster } from "react-hot-toast";
 
 export default function App() {
   const [images, setImages] = useState([]);
@@ -18,31 +19,54 @@ export default function App() {
 
 
 
-  useEffect(() => {
-    if (query.trim()) {
-      return;
-    }
+  // useEffect(() => {
+  //   if (query.trim() === "") {
+  //     return;
+  //   }
 
-    async function fetchArticles() {
+  //   async function fetchArticles() {
+  //     try {
+  //       loading(true);
+  //       error(false);
+  //       const data = await getArticles(query, page);
+  //       setImages((prevState) => [...prevState, ...data]);
+  //     } catch (error) {
+  //       setError(true);
+  //     } finally {
+  //       setLoading(false)
+  //     }
+  //   }
+
+  //   fetchArticles();
+  // }, [page, query]);
+
+useEffect(() => {
+    const fetchData = async () => {
       try {
-        loading(true);
-        error(false);
+        setLoading(true);
         const data = await getArticles(query, page);
-        setImages((prevState) => [...prevState, ...data]);
+        if (page === 1) {
+          setImages(data);
+        } else {
+          setImages((prevImages) => [...prevImages, ...data]);
+        }
       } catch (error) {
         setError(true);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
+    };
 
-    fetchArticles();
-  }, [page, query]);
+    if (query !== "") {
+      fetchData();
+    }
+  }, [query, page]);
 
   const handleSearch = async (searchImg) => {
     setQuery(searchImg);
     setPage(1);
     setImages([]);
+    setError(false);
   };
 
   const handleLoadMore = async () => {
@@ -55,27 +79,30 @@ export default function App() {
   };
 
   const closeModal = () => {
-    setSelectImageUrl("");
     setModalIsOpen(false);
   };
 
   return (
-    <div>
+    <>
       <SearchBar onSearch={handleSearch} />
       {loading && <Loader />}
       {error && <ErrorMessage />}
+
       {images.length > 0 && (
         <ImageGallery items={images} onImageClick={openModal} />
       )}
+
       {images.length > 0 && (
         <LoadMoreBtn onClick={handleLoadMore} loading={loading} />
       )}
+      
       <ImageModal
         isOpen={modalIsOpen}
         onClose={closeModal}
         imageUrl={selectImageUrl} />
-
-    </div>
+      
+      <Toaster />
+    </>
   )
 };
 
