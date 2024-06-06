@@ -18,28 +18,6 @@ export default function App() {
   const [selectImageUrl, setSelectImageUrl] = useState("");
 
 
-
-  // useEffect(() => {
-  //   if (query.trim() === "") {
-  //     return;
-  //   }
-
-  //   async function fetchArticles() {
-  //     try {
-  //       loading(true);
-  //       error(false);
-  //       const data = await getArticles(query, page);
-  //       setImages((prevState) => [...prevState, ...data]);
-  //     } catch (error) {
-  //       setError(true);
-  //     } finally {
-  //       setLoading(false)
-  //     }
-  //   }
-
-  //   fetchArticles();
-  // }, [page, query]);
-
 useEffect(() => {
     const fetchData = async () => {
       try {
